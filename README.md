@@ -1,5 +1,5 @@
 # Harry potter
-Another harry potter clone written in C using SDL2. It lacks a lot of features compared to [C# version](https://github.com/wingerse/harry-potter-game), and has some bugs.  
+Another harry potter clone written in C using SDL2. It lacks a some features compared to [C# version](https://github.com/wingerse/harry-potter-game).  
 I stopped working on this after getting tired of writing C.  
 
 To compile, edit the Makefile to point to correct SDL library and include paths. Make ./bin/ and ./obj/, copy ./res/ to ./bin/ and then do `make`.  

@@ -11,7 +11,7 @@ LINK_PATHS := -LD:\c\SDL\SDL2-2.0.7\x86_64-w64-mingw32\lib\
 LIBS := -lmingw32 -lSDL2_image -lSDL2_mixer -lSDL2main -lSDL2
 
 OTHER_FLAGS := -Wl,-subsystem,console\
--march=x86-64 -Wall -Werror -g
+-march=x86-64 -Wall -Wno-unused-function -Werror -g
 
 CFLAGS = $(INCLUDE_PATHS) $(LINK_PATHS) $(LIBS) $(OTHER_FLAGS)
 

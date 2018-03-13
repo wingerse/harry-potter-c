@@ -11,19 +11,19 @@
 #define HARRY_ANIM_DELAY 0.2
 
 
-static Vec harry0_vertices[] = { { 0, 59 }, { 58, 1 }, { 93, 45 } };
-static Vec harry1_vertices[] = { { 0, 50 }, { 67, 4 }, { 93, 53 } };
-static Vec harry2_vertices[] = { { 0, 50 }, { 67, 4 }, { 93, 53 } };
-static Vec harry3_vertices[] = { { 0, 55 }, { 14, 6 }, { 67, 4 }, { 93, 53 } };
-static Vec harry4_vertices[] = { { 0, 55 }, { 14, 6 }, { 67, 4 }, { 93, 53 } };
-static Vec harry5_vertices[] = { { 0, 55 }, { 14, 6 }, { 67, 4 }, { 93, 53 } };
-static Vec harry6_vertices[] = { { 0, 59 }, { 58, 1 }, { 93, 45 } };
-static Vec harry7_vertices[] = { { 0, 59 }, { 58, 1 }, { 93, 45 } };
-static Vec harry8_vertices[] = { { 0, 64 }, { 45, 0 }, { 96, 40 } };
-static Vec harry9_vertices[] = { { 0, 64 }, { 48, 0 }, { 96, 36 } };
-static Vec harry10_vertices[] = { { 4, 64 }, { 8, 28 }, { 52, 0 }, { 96, 36 } };
-static Vec harry11_vertices[] = { { 4, 64 }, { 8, 28 }, { 52, 0 }, { 96, 36 } };
-static Vec harry12_vertices[] = { { 0, 64 }, { 48, 0 }, { 95, 35 } };
+static Vec harry0_vertices[] = { { 0/2, 59/2 }, { 58/2, 1/2 }, { 93/2, 45/2 } };
+static Vec harry1_vertices[] = { { 0/2, 50/2 }, { 67/2, 4/2 }, { 93/2, 53/2 } };
+static Vec harry2_vertices[] = { { 0/2, 50/2 }, { 67/2, 4/2 }, { 93/2, 53/2 } };
+static Vec harry3_vertices[] = { { 0/2, 55/2 }, { 14/2, 6/2 }, { 67/2, 4/2 }, { 93/2, 53/2 } };
+static Vec harry4_vertices[] = { { 0/2, 55/2 }, { 14/2, 6/2 }, { 67/2, 4/2 }, { 93/2, 53/2 } };
+static Vec harry5_vertices[] = { { 0/2, 55/2 }, { 14/2, 6/2 }, { 67/2, 4/2 }, { 93/2, 53/2 } };
+static Vec harry6_vertices[] = { { 0/2, 59/2 }, { 58/2, 1/2 }, { 93/2, 45/2 } };
+static Vec harry7_vertices[] = { { 0/2, 59/2 }, { 58/2, 1/2 }, { 93/2, 45/2 } };
+static Vec harry8_vertices[] = { { 0/2, 64/2 }, { 45/2, 0/2 }, { 96/2, 40/2 } };
+static Vec harry9_vertices[] = { { 0/2, 64/2 }, { 48/2, 0/2 }, { 96/2, 36/2 } };
+static Vec harry10_vertices[] = { { 4/2, 64/2 }, { 8/2, 28/2 }, { 52/2, 0/2 }, { 96/2, 36/2 } };
+static Vec harry11_vertices[] = { { 4/2, 64/2 }, { 8/2, 28/2 }, { 52/2, 0/2 }, { 96/2, 36/2 } };
+static Vec harry12_vertices[] = { { 0/2, 64/2 }, { 48/2, 0/2 }, { 95/2, 35/2 } };
 
 static Vec* harry_vertices[HARRY_ANIM_FRAMES] = {
     harry0_vertices, harry1_vertices, harry2_vertices, harry3_vertices,
@@ -76,7 +76,7 @@ void init_harry_axes()
 void Harry_init(Harry* harry)
 {
     harry->state = HarryState_DOWN;
-    harry->pos = (Point){ 50, 100 };
+    harry->pos = (Point){ 100, 100 };
     Animation_init(&harry->anim_init_up, 7, 9, HARRY_ANIM_DELAY, false);
     Animation_init(&harry->anim_up, 10, 12, HARRY_ANIM_DELAY, true);
     Animation_init(&harry->anim_init_down, 0, 2, HARRY_ANIM_DELAY, false);
