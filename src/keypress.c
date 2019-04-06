@@ -1,5 +1,5 @@
 #include "keypress.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdbool.h>
 
 bool keypress[SDL_NUM_SCANCODES];

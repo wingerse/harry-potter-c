@@ -2,7 +2,7 @@
 
 #include "scene.h"
 #include <stdbool.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 typedef struct Game Game;
 

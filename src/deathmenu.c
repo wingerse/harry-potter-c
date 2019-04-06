@@ -4,7 +4,7 @@
 #include "game.h"
 #include "text.h"
 #include "defs.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdio.h>
 #include "keypress.h"
 #include "startmenu.h"

@@ -1,6 +1,11 @@
 {
     "files.associations": {
-        "sdl_mixer.h": "c",
-        "vec.h": "c"
+        "sdl.h": "c",
+        "sdl_image.h": "c",
+        "game.h": "c",
+        "mainlevel.h": "c",
+        "acilis.jpg.h": "c",
+        "obstacle1.png.h": "c",
+        "font-acilis.png.h": "c"
     }
 }

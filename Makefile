@@ -1,33 +1,80 @@
-CC=gcc
+PROJ_NAME = harry-potter
+CC = clang
+LIBS = -lSDL2 -lSDL2_mixer -lSDL2_image -lm
+# -pg -mfentry
+CFLAGS = -std=gnu11 -march=x86-64 -msse3 \
+-Werror -Wall -Wextra -Wpedantic -Wconversion \
+-Wno-unused-parameter -Wno-missing-braces -Wno-missing-field-initializers -Wno-format \
+-Wno-newline-eof -Wno-language-extension-token -Wno-gnu-zero-variadic-macro-arguments \
+-Wno-gnu-empty-struct -Wno-error=unused-function
 
-INCLUDE_PATHS := -ID:\c\SDL\SDL2-2.0.7\x86_64-w64-mingw32\include\SDL2\
--ID:\c\SDL\SDL2_image-2.0.2\x86_64-w64-mingw32\include\SDL2\
--ID:\c\SDL\SDL2_mixer-2.0.2\x86_64-w64-mingw32\include\SDL2
+ifdef RELEASE
+CFLAGS += -O2 -DNDEBUG
+BUILD_FOLDER = release
+else
+CFLAGS += -g -D_DEBUG -DDEBUG -O0
+BUILD_FOLDER = debug
+endif
 
-LINK_PATHS := -LD:\c\SDL\SDL2-2.0.7\x86_64-w64-mingw32\lib\
--LD:\c\SDL\SDL2_image-2.0.2\x86_64-w64-mingw32\lib\
--LD:\c\SDL\SDL2_mixer-2.0.2\x86_64-w64-mingw32\lib\
+ifdef UNIT_TEST
+CFLAGS += -DUNIT_TEST
+BUILD_FOLDER := ut-$(BUILD_FOLDER)
+endif
 
-LIBS := -lmingw32 -lSDL2_image -lSDL2_mixer -lSDL2main -lSDL2
+OUTPUT_FOLDER = bin
+ifdef LIB
+ifndef UNIT_TEST
+OUTPUT_FOLDER = lib
+PROJ_NAME := $(PROJ_NAME).a
+endif
+endif
 
-OTHER_FLAGS := -Wl,-subsystem,console\
--march=x86-64 -Wall -Wno-unused-function -Werror -g
+src = $(shell find src -name '*.c' -type f | paste -s -)
+res = $(shell find res -name '*' -type f 2> /dev/null | paste -s -)
 
-CFLAGS = $(INCLUDE_PATHS) $(LINK_PATHS) $(LIBS) $(OTHER_FLAGS)
+TARGET = $(OUTPUT_FOLDER)/$(BUILD_FOLDER)/$(PROJ_NAME)
+$(shell mkdir -p $(OUTPUT_FOLDER)/$(BUILD_FOLDER))
 
-TARGET=bin/main.exe
+obj = $(patsubst src/%.c,obj/$(BUILD_FOLDER)/%.o,$(src))
+obj/$(BUILD_FOLDER)/%.o: src/%.c
+	mkdir -p $(@D)
+	$(CC) -c $< -o $@ $(INCLUDE_PATHS) $(CFLAGS) -MP -MMD
 
-src = $(wildcard src/*.c)
-obj = $(patsubst src/%.c,obj/%.o,$(src))
+res_obj = $(patsubst res/%,obj/res/%.o,$(res))
+obj/res/%.o: res/%
+	mkdir -p $(@D)
+	embed -h $< > $(patsubst %.o, %.h, $@)
+	embed $< | $(CC) -c -o $@ -xc -
 
-obj/%.o: src/%.c
-	$(CC) -c $< -o $@ $(CFLAGS) -MP -MMD -MD -MT $@ -MF $(@:.o=.d)
-main: $(obj)
-	$(CC) -o $(TARGET) $(obj) $(CFLAGS)
+main: $(res_obj) $(obj)
+ifdef LIB
+ifndef UNIT_TEST
+	ar rcs $(TARGET) $(res_obj) $(obj)
+else
+	$(CC) -o $(TARGET) $(res_obj) $(obj) $(LINK_PATHS) $(LIBS) $(CFLAGS)
+endif
+else
+	$(CC) -o $(TARGET) $(res_obj) $(obj) $(LINK_PATHS) $(LIBS) $(CFLAGS)
+endif
+
+run: main
+	$(TARGET)
 
 .PHONY: clean
+.PHONY: clean-debug
+.PHONY: clean-release
+.PHONY: clean-res
 
 clean:
-	del /Q obj\*
+	rm -rf obj/
+
+clean-debug:
+	rm -rf obj/debug/
+
+clean-release:
+	rm -rf obj/release/
+
+clean-res:
+	rm -rf obj/res/
 
 -include $(obj:.o=.d)

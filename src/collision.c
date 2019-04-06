@@ -1,7 +1,7 @@
 #include "collision.h"
 #include "vec.h"
 #include <stddef.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 bool Projection_overlaps(Projection a, Projection b)
 {

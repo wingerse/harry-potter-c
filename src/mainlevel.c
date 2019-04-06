@@ -1,6 +1,6 @@
 #include "mainlevel.h"
 #include "defs.h"
-#include "SDL.h"
+#include <SDL2/SDL.h>
 #include "game.h"
 #include "assets.h"
 #include "maps.h"
@@ -28,13 +28,13 @@ static void map_check_collision(Map* map, Harry* harry)
     for (int y = 0; y < MAP_TILE_Y_COUNT; y++) {
         for (int x = 0; x < MAP_TILE_X_COUNT; x++) {
             int tile = (*map->skeleton)[y][x];
-            int tile_x = map->pos.x + x * TILE_WIDTH;
-            int tile_y = map->pos.y + y * TILE_HEIGHT;
+            int tile_x = (int)(map->pos.x + x * TILE_WIDTH);
+            int tile_y = (int)(map->pos.y + y * TILE_HEIGHT);
             if (!harry->is_dead && tile != 0 && tile_x >= harry->pos.x - TILE_WIDTH && tile_x <= harry->pos.x + HARRY_FRAME_WIDTH + TILE_WIDTH && 
             tile_y >= harry->pos.y - TILE_HEIGHT && tile_y <= harry->pos.y + HARRY_FRAME_HEIGHT + TILE_HEIGHT) {
                 Polygon p;
                 Polygon_init(&p, tile_vertices[tile], tile_vertices_lens[tile], tile_axes[tile]);
-                if (Polygon_intersects(&p, (SDL_Point){tile_x, tile_y}, &harry->current_polygon, (SDL_Point){harry->pos.x, harry->pos.y})) {
+                if (Polygon_intersects(&p, (SDL_Point){tile_x, tile_y}, &harry->current_polygon, (SDL_Point){(int)harry->pos.x, (int)harry->pos.y})) {
                     harry->is_dead = true;
                 }
             }

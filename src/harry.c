@@ -2,13 +2,13 @@
 #include "assets.h"
 #include "defs.h"
 #include "vec.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <math.h>
 #include <stdio.h>
 
 #define HARRY_SPEED 150
 #define HARRY_ANIM_FRAMES 13
-#define HARRY_ANIM_DELAY 0.2
+#define HARRY_ANIM_DELAY 0.2f
 
 
 static Vec harry0_vertices[] = { { 0/2, 59/2 }, { 58/2, 1/2 }, { 93/2, 45/2 } };
@@ -132,7 +132,7 @@ bool Harry_draw(Harry* harry, SDL_Renderer* renderer)
 {
     ERR_IF(SDL_RenderCopy(renderer, asset_harry,
                &(SDL_Rect){ harry->current_animation->current_frame * HARRY_FRAME_WIDTH, 0, HARRY_FRAME_WIDTH, HARRY_FRAME_HEIGHT },
-               &(SDL_Rect){ harry->pos.x, round(harry->pos.y), HARRY_FRAME_WIDTH, HARRY_FRAME_HEIGHT }),
+               &(SDL_Rect){ (int)harry->pos.x, (int)round(harry->pos.y), HARRY_FRAME_WIDTH, HARRY_FRAME_HEIGHT }),
         == -1);
     return true;
 }
@@ -140,7 +140,7 @@ bool Harry_draw(Harry* harry, SDL_Renderer* renderer)
 void Magic_init(Magic* magic, Point pos)
 {
     magic->pos = pos;
-    Animation_init(&magic->anim, 0, 9, 0.2, false);
+    Animation_init(&magic->anim, 0, 9, 0.2f, false);
 }
 
 bool Magic_update(Magic* magic, float delta)
@@ -156,6 +156,6 @@ bool Magic_draw(Magic* magic, SDL_Renderer* renderer)
 {
     ERR_IF(SDL_RenderCopy(renderer, asset_explosion, 
     &(SDL_Rect){magic->anim.current_frame * MAGIC_FRAME_WIDTH, 0, MAGIC_FRAME_WIDTH, MAGIC_FRAME_HEIGHT}, 
-            &(SDL_Rect){magic->pos.x, magic->pos.y, MAGIC_FRAME_WIDTH, MAGIC_FRAME_HEIGHT}), == -1);
+            &(SDL_Rect){(int)magic->pos.x, (int)magic->pos.y, MAGIC_FRAME_WIDTH, MAGIC_FRAME_HEIGHT}), == -1);
     return true;
 }

@@ -1,8 +1,8 @@
 #include "game.h"
 #include "assets.h"
 #include "defs.h"
-#include <SDL_image.h>
-#include <SDL_mixer.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <stdbool.h>
 #include "startmenu.h"
 #include "deathmenu.h"
@@ -92,8 +92,8 @@ bool Game_run(Game* game)
             }
             SDL_RenderPresent(game->renderer);
         } else {
-            float sleep_time = (TICK_DURATION - delta) * 1000;
-            SDL_Delay(sleep_time);
+            float sleep_time = (float)((TICK_DURATION - delta) * 1000);
+            SDL_Delay((Uint32)sleep_time);
         } 
     }
     

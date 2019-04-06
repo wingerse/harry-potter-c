@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "vec.h"
 #include <stddef.h>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 typedef struct Projection {
     int min, max;

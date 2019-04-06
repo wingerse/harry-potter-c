@@ -23,7 +23,7 @@ bool Map_draw(Map* map, SDL_Renderer* renderer)
             if (tile != 0) {
                 ERR_IF(SDL_RenderCopy(renderer, asset_ground_unit_board,
                            &(SDL_Rect){ (tile - 1) * TILE_WIDTH, 0, TILE_WIDTH, TILE_HEIGHT },
-                           &(SDL_Rect){ map->pos.x + x * TILE_WIDTH, map->pos.y + y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT }),
+                           &(SDL_Rect){ (int)(map->pos.x + x * TILE_WIDTH), (int)(map->pos.y + y * TILE_HEIGHT), TILE_WIDTH, TILE_HEIGHT }),
                     == -1);
             }
         }
