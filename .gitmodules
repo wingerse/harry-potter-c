@@ -1,0 +1,3 @@
+[submodule "master-makefile"]
+	path = master-makefile
+	url = https://github.com/wingerse/master-makefile
